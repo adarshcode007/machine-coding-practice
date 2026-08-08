@@ -26,3 +26,10 @@
   padding: 5px;
   margin: 5px 2px;
 }
+
+.error {
+  font-size: small;
+  color: red;
+  display: block;
+  opacity: 80%;
+}
