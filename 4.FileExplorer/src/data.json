@@ -1,0 +1,56 @@
+[
+  {
+    "name": "public",
+    "isFolder": true,
+    "children": [
+      {
+        "name": "index.html",
+        "isFolder": false
+      }
+    ]
+  },
+  {
+    "name": "src",
+    "isFolder": true,
+    "children": [
+      {
+        "name": "components",
+        "isFolder": true,
+        "children": [
+          {
+            "name": "test",
+            "isFolder": true,
+            "children": [
+              {
+                "name": "test",
+                "isFolder": true,
+                "children": [
+                  {
+                    "name": "file.js",
+                    "isFolder": false
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "App.jsx",
+        "isFolder": false
+      },
+      {
+        "name": "data.json",
+        "isFolder": false
+      },
+      {
+        "name": "styles.css",
+        "isFolder": false
+      }
+    ]
+  },
+  {
+    "name": "package.json",
+    "isFolder": false
+  }
+]
