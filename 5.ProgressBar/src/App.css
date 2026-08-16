@@ -1,0 +1,19 @@
+.heading {
+  margin-bottom: 50px;
+}
+
+.outer {
+  width: 350px;
+  border: solid 3px grey;
+  margin: auto;
+  margin-top: 10px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.inner {
+  background-color: green;
+  color: white;
+  text-align: right;
+  transition: 0.75s ease-in-out;
+}
