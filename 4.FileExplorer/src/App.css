@@ -8,3 +8,8 @@
   padding: 10px 0px;
   cursor: pointer;
 }
+
+.icon {
+  width: 15px;
+  margin-left: 10px;
+}
