@@ -1,16 +1,134 @@
-# React + Vite
+```
+// Recursion + Map + filter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+const renameNode = (nodeId, newName) => {
+    const update = (list) => {
+        return list.map((node) => {
+            if(node.id===nodeId){
+                return {...node, name: newName};
+            }
+            if(node.children && node.children.length>0){
+                return {...node, children: update(node.children)}
+            }
+            return node;
+        })
+    }
+    setData(prev => update(prev))
+}
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## React Compiler
+const deleteNode = (nodeId) => {
+    const update = (list) => {
+        return list.filter(node => node.id !== nodeId).map(node => {
+            if(node.children && node.children.length>0){
+                return {...node, children: update(node.children)}
+            }
+            return node;
+        })
+    }
+    setData(prev => update(prev));
+}
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+// moveNode("3","6")
+
+const moveNode = (nodeId, targetFolderId) => {
+  let movedNode = null;
+
+  // 1. Remove the node from its current location
+  const removeNode = (list) => {
+    return list
+      .filter((node) => {
+        if (node.id === nodeId) {
+          movedNode = node;
+          return false;
+        }
+        return true;
+      })
+      .map((node) => {
+        if (node.children && node.children.length > 0) {
+          return {
+            ...node,
+            children: removeNode(node.children),
+          };
+        }
+
+        return node;
+      });
+  };
+
+  // 2. Add the removed node to the target folder
+  const addNode = (list) => {
+    return list.map((node) => {
+      if (node.id === targetFolderId) {
+        return {
+          ...node,
+          children: [...node.children, movedNode],
+        };
+      }
+
+      if (node.children && node.children.length > 0) {
+        return {
+          ...node,
+          children: addNode(node.children),
+        };
+      }
+
+      return node;
+    });
+  };
+
+  setData((prev) => {
+    const updatedTree = removeNode(prev);
+    return addNode(updatedTree);
+  });
+};
+
+
+
+
+// Count the number of Files/Folder
+
+const countFiles = () => {
+    let count = 0;
+    const solve = (list) =>{
+        list.forEach(node => {
+            if(!node.isFolder) count++;
+            if(node.children && node.children.length>0){
+                solve(node.children);
+            }
+        });
+    };
+
+    solve(data);
+    return count;
+}
+
+
+
+// Find the path  ["src", "component", "App.jsx"]
+
+const findPath = (nodeId) => {
+    const path = [];
+    const solve = (list) => {
+        for (const node of list){
+            if(node.id===nodeId){
+                path.push(node.name);
+                return true;
+            }
+            if(node.children && node.children.length>0){
+                path.push(node.name);
+                if(solve(node.children)) return true;
+                path.pop();
+            }
+        }
+        return false;
+    }
+
+    solve(data);
+    return path;
+}
+
+```
